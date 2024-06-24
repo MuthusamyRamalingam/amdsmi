@@ -631,7 +631,7 @@ amdsmi_status_t amdsmi_set_gpu_fan_speed(amdsmi_processor_handle processor_handl
 
 amdsmi_status_t amdsmi_get_gpu_id(amdsmi_processor_handle processor_handle,
                                 uint16_t *id) {
-	printf("*******enter amdsmi_get_gpu_id\n");
+	printf("*******enter amdsmi_get_gpu_id: *id:%d:id:%d\n",*id,id);
     amdsmi_status_t temp =  rsmi_wrapper(rsmi_dev_id_get, processor_handle, id);
 	printf("*******exit amdsmi_get_gpu_id: *id:%d:id:%d\n",*id,id);
 	return temp;
