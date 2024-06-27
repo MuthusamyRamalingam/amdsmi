@@ -531,11 +531,11 @@ amdsmi_status_t  amdsmi_get_temp_metric(amdsmi_processor_handle processor_handle
                     amdsmi_temperature_type_t sensor_type,
                     amdsmi_temperature_metric_t metric, int64_t *temperature) {
 
-	printf("*******enter temp amdsmi_get_power_cap_info\n");
+	//$$printf("*******enter temp amdsmi_get_power_cap_info\n");
     AMDSMI_CHECK_INIT();
 
     if (temperature == nullptr) {
-		printf("*******exit1 temp amdsmi_get_power_cap_info\n");
+		//$$printf("*******exit1 temp amdsmi_get_power_cap_info\n");
         return AMDSMI_STATUS_INVAL;
     }
 
@@ -547,14 +547,14 @@ amdsmi_status_t  amdsmi_get_temp_metric(amdsmi_processor_handle processor_handle
         if (r_status != AMDSMI_STATUS_SUCCESS)
             return r_status;
         *temperature = metric_info.temperature_vrsoc;
-		printf("*******exit2 success temp amdsmi_get_power_cap_info:%d\n",*temperature);
+		//$$printf("*******exit2 success temp amdsmi_get_power_cap_info:%d\n",*temperature);
         return r_status;
     }
     amdsmi_status_t amdsmi_status = rsmi_wrapper(rsmi_dev_temp_metric_get, processor_handle,
             static_cast<uint32_t>(sensor_type),
             static_cast<rsmi_temperature_metric_t>(metric), temperature);
     *temperature /= 1000;
-	printf("*******exit3 success temp amdsmi_get_power_cap_info:%d\n",*temperature);
+	//$$printf("*******exit3 success temp amdsmi_get_power_cap_info:%d\n",*temperature);
     return amdsmi_status;
 }
 
@@ -631,9 +631,9 @@ amdsmi_status_t amdsmi_set_gpu_fan_speed(amdsmi_processor_handle processor_handl
 
 amdsmi_status_t amdsmi_get_gpu_id(amdsmi_processor_handle processor_handle,
                                 uint16_t *id) {
-	printf("*******enter amdsmi_get_gpu_id: *id:%d:id:%d\n",*id,id);
+	//$printf("*******enter amdsmi_get_gpu_id: *id:%d:id:%d\n",*id,id);
     amdsmi_status_t temp =  rsmi_wrapper(rsmi_dev_id_get, processor_handle, id);
-	printf("*******exit amdsmi_get_gpu_id: *id:%d:id:%d\n",*id,id);
+	//$printf("*******exit amdsmi_get_gpu_id: *id:%d:id:%d\n",*id,id);
 	return temp;
 }
 
@@ -1353,6 +1353,8 @@ amdsmi_status_t amdsmi_get_gpu_pci_bandwidth(amdsmi_processor_handle processor_h
 // TODO(bliu): other frequencies in amdsmi_clk_type_t
 amdsmi_status_t  amdsmi_get_clk_freq(amdsmi_processor_handle processor_handle,
                         amdsmi_clk_type_t clk_type, amdsmi_frequencies_t *f) {
+	
+	//$printf("*******enter amdsmi_get_clk_freq\n");
     AMDSMI_CHECK_INIT();
     // nullptr api supported
 
@@ -1945,7 +1947,7 @@ amdsmi_get_power_info(amdsmi_processor_handle processor_handle, amdsmi_power_inf
     info->mem_voltage = 0xFFFF;
     info->power_limit = 0xFFFF;
 
-	printf("*******enter amdsmi_get_power_info: %d\n",info->average_socket_power);
+	//$$printf("*******enter amdsmi_get_power_info: %d\n",info->average_socket_power);
     amdsmi_gpu_metrics_t metrics = {};
     status = amdsmi_get_gpu_metrics_info(processor_handle, &metrics);
     if (status == AMDSMI_STATUS_SUCCESS) {
@@ -1954,11 +1956,11 @@ amdsmi_get_power_info(amdsmi_processor_handle processor_handle, amdsmi_power_inf
         info->gfx_voltage = metrics.voltage_gfx;
         info->soc_voltage = metrics.voltage_soc;
         info->mem_voltage = metrics.voltage_mem;
-		printf("*******fetch amdsmi_get_power_info: %d\n",info->average_socket_power);
+		//$$printf("*******fetch amdsmi_get_power_info: %d\n",info->average_socket_power);
     }
 	else
 	{
-		printf("*******fail amdsmi_get_power_info: %d\n",info->average_socket_power);
+		//$$printf("*******fail amdsmi_get_power_info: %d\n",info->average_socket_power);
 	}
 
     int power_limit = 0;
@@ -1967,7 +1969,7 @@ amdsmi_get_power_info(amdsmi_processor_handle processor_handle, amdsmi_power_inf
         info->power_limit = power_limit;
     }
 
-	printf("*******exit amdsmi_get_power_info: %d\n",info->average_socket_power);
+	//$$printf("*******exit amdsmi_get_power_info: %d\n",info->average_socket_power);
     return status;
 }
 
